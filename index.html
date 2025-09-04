@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Boas Práticas para Desenvolvimento de Extensões</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link para o arquivo de estilo externo -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="antialiased">
+    <!-- CABEÇALHO -->
+    <header class="bg-white shadow-md fixed top-0 left-0 w-full z-30 h-16 flex items-center justify-between px-4 md:px-6">
+        <div class="flex items-center gap-3">
+            <!-- Logo local -->
+            <img src="assets/logo.png" alt="Logo da Empresa" class="h-8">
+            <h1 class="text-lg font-bold text-[#003049] hidden md:block">Guia de Boas Práticas para Desenvolvimento de Extensões</h1>
+        </div>
+        <div id="mobile-menu-button" class="md:hidden">
+            <button class="flex items-center space-x-2 text-gray-700 p-2 rounded-md hover:bg-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="relative min-h-screen md:flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-white text-gray-800 w-64 space-y-2 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-20 shadow-lg md:shadow-none top-16 md:top-0">
+            <h2 class="text-lg font-semibold text-center mb-4 text-[#003049] px-2">Navegação Rápida</h2>
+            <nav id="nav-menu">
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 active" data-target="section-0">Início</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-5">1. Nomenclatura de Artefatos</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-1">2. Variáveis e Parâmetros</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-3">3. Estrutura do Código</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-2">4. Linguagem e Performance</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-4">5. Comentários</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-9">6. Parâmetros de Relatórios</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-8">7. Layout de Relatórios</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-6">8. Ambiente e Fluxo</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-7">9. Rotina de Publicação</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-10">10. Exceções às Regras</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="flex-1 p-6 md:p-10">
+            <div id="content-area">
+                
+                <!-- SEÇÃO DE BOAS-VINDAS -->
+                <section id="section-0" class="content-section space-y-6">
+                    <h2 class="text-4xl font-bold section-title">Bem-vindo ao Guia de Boas Práticas para Desenvolvimento de Extensões!</h2>
+                    <div class="content-card">
+                        <p class="text-lg leading-relaxed">Este guia interativo foi criado para ser uma fonte de consulta rápida e eficiente sobre os padrões de desenvolvimento e as melhores práticas adotadas pela nossa equipe.</p>
+                        <p class="mt-4">Navegue pelos tópicos no menu lateral para encontrar as diretrizes que você precisa, desde a nomenclatura de variáveis até o processo de publicação de relatórios.</p>
+                        <p class="mt-4 font-semibold text-blue-700">O objetivo é simples: escrever um código mais limpo, consistente e de fácil manutenção para todos.</p>
+                    </div>
+                </section>
+
+                <!-- Nomenclatura de Artefatos -->
+                <section id="section-5" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">1. Nomenclatura de Artefatos no Ambiente</h2>
+                    <p class="text-gray-600">Para manter a organização e rastreabilidade, a criação de relatórios e fontes de dados deve seguir um padrão estrito, associando o artefato ao ID da demanda.</p>
+                    <div class="content-card">
+                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Padrão de Nomenclatura</h3>
+                         <p class="mb-4">O nome do artefato deve ser prefixado com o identificador da demanda entre colchetes.</p>
+                         <p class="p-4 bg-gray-100 rounded-lg text-center font-mono text-lg"><strong>[ID-da-Demanda] Nome do Artefato</strong></p>
+                         <h4 class="font-semibold text-lg mt-6 mb-2">Exemplos</h4>
+                         <ul class="list-disc list-inside space-y-2">
+                             <li><strong>Relatório:</strong> [DE-12345] Relatório de Bens Patrimoniais</li>
+                             <li><strong>Fonte Dinâmica:</strong> [DE-12345] Fonte Relatório de Bens Patrimoniais</li>
+                         </ul>
+                    </div>
+                </section>
+                
+                <!-- Variáveis e Parâmetros -->
+                <section id="section-1" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">2. Variáveis e Parâmetros</h2>
+                    <p class="text-gray-600">A padronização na nomenclatura é fundamental para a legibilidade e manutenção do código. A convenção adotada deve ser consistente em todo o projeto.</p>
+                    
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Padrão camelCase</h3>
+                        <p>Nomes de variáveis e parâmetros devem seguir o padrão <strong>camelCase</strong>: iniciar com letra minúscula e capitalizar a primeira letra de cada palavra subsequente.</p>
+                        <ul class="list-disc list-inside mt-4 space-y-2">
+                            <li><code>nomeUsuario</code></li>
+                            <li><code>dataInicial</code></li>
+                            <li><code>valorTotal</code></li>
+                            <li><code>entidadeSelecionada</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="content-card border-l-4 border-green-500 bg-green-50">
+                            <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i class="fas fa-check-circle mr-2"></i>Recomendado: Clareza e Contexto</h3>
+                            <p class="mb-4 text-green-800">Nomes devem autoexplicar seu propósito, descrevendo o contexto.</p>
+                            <div class="code-block" data-code-block>
+                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Nomes que descrevem o contexto
+def nomeBem
+def placaBem
+def saldoAnteriorBem</span>
+                            </div>
+                        </div>
+                        <div class="content-card border-l-4 border-red-500 bg-red-50">
+                           <h3 class="font-bold text-xl mb-3 text-red-700 flex items-center"><i class="fas fa-times-circle mr-2"></i>Não Recomendado: Nomes Genéricos</h3>
+                            <p class="mb-4 text-red-800">Nomes que não dão contexto e podem gerar confusão.</p>
+                             <div class="code-block" data-code-block>
+                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Nomes sem contexto
+def nome
+def placa
+def saldo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Identificação de Estruturas de Dados</h3>
+                        <p class="mb-4">Indique o tipo da estrutura (List, Map) no nome da variável para maior clareza.</p>
+                        <div class="code-block" data-code-block>
+                           <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>
+listBens = []
+mapBensPorPlaca = [:]
+</span>
+                       </div>
+                    </div>
+                </section>
+
+                <!-- Estrutura do Código -->
+                <section id="section-3" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">3. Estrutura do Código</h2>
+                    <p class="text-gray-600">Para garantir organização, legibilidade e manutenibilidade, todo código Groovy/Java deve ser segmentado em blocos lógicos, delimitados por comentários.</p>
+                     <div class="content-card">
+                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Modelo de Estrutura</h3>
+                         <div class="code-block" data-code-block>
+                             <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Template</span></button><span data-code-content>/**************************************************
+ * Esquema
+ **************************************************/
+// Definição do esquema de dados, se aplicável.
+
+/**************************************************
+ * Fontes
+ **************************************************/
+// Definição das fontes de dados que serão utilizadas.
+
+/**************************************************
+ * Parâmetros
+ **************************************************/
+// Declaração e obtenção dos parâmetros de entrada.
+
+/**************************************************
+ * Critérios
+ **************************************************/
+// Construção de filtros e critérios a serem usados.
+
+/**************************************************
+ * Estruturas de Dados e Inicialização
+ **************************************************/
+// Inicialização de listas, mapas e outras variáveis.
+
+/**************************************************
+ * Consultas
+ **************************************************/
+// Execução de queries no banco de dados.
+
+/**************************************************
+ * Funções reservadas
+ **************************************************/
+// Execução de funções especificas para tratamento de dados das Consultas
+
+/**************************************************
+ * Inserir dados na fonte
+ **************************************************/
+// Processamento e inserção dos dados na fonte de destino.</span>
+                         </div>
+                     </div>
+                </section>
+
+                <!-- Linguagem e Performance -->
+                <section id="section-2" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">4. Linguagem e Performance</h2>
+                     <p class="text-gray-600">A escolha da linguagem e a atenção às práticas de codificação impactam diretamente a performance, o consumo de memória e o tempo de processamento.</p>
+
+                     <div class="content-card">
+                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Linguagem de Programação: Groovy/Java</h3>
+                         <p>Para lógicas e customizações, a linguagem a ser utilizada deve ser <strong>Groovy/Java</strong>.</p>
+                         <ul class="list-disc list-inside mt-4 space-y-2">
+                             <li><strong>Vantagens:</strong> Maior flexibilidade, poder de processamento, e facilidade na manutenção e depuração de lógicas complexas.</li>
+                             <li><strong>Evitar:</strong> BFC-Script, devido a limitações de complexidade, performance e manutenibilidade a longo prazo.</li>
+                         </ul>
+                     </div>
+
+                     <div class="content-card">
+                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Mapeamento Seletivo de Campos</h3>
+                         <p>Ao definir uma fonte de dados, mapeie <strong>apenas os campos que serão efetivamente utilizados</strong> no script para evitar tráfego de dados e consumo de memória desnecessários.</p>
+                     </div>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Evitar Consultas Aninhadas em Loops (N+1)</h3>
+                        <p class="mb-4">Nunca realize consultas dentro de um laço de repetição. Isso gera um número excessivo de queries ao banco de dados, causando lentidão severa.</p>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-red-600">Prática Ruim (N+1)</h4>
+                                <div class="code-block" data-code-block>
+                                    <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>List bens = queryBens()
+for(bem in bens){
+  // Uma nova consulta para cada item!
+  def infoExtra = queryInfoExtra(bem.id) 
+  // ...
+}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2 text-green-600">Alternativa Correta</h4>
+                                 <div class="code-block" data-code-block>
+                                    <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Carrega dados secundários antes
+Map infosExtras = queryTodasInfosExtras()
+
+List bens = queryBens()
+for(bem in bens){
+  // Acesso rápido em memória
+  def infoExtra = infosExtras.get(bem.id)
+  // ...
+}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Comentários -->
+                 <section id="section-4" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">5. Comentários no Código</h2>
+                    <p class="text-gray-600">A regra de ouro é: <strong>comentários devem explicar o "porquê", não o "o quê"</strong>. O código deve ser legível o suficiente para explicar o que está fazendo.</p>
+                     <div class="grid md:grid-cols-2 gap-6">
+                        <div class="content-card bg-green-50">
+                           <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i class="fas fa-check-circle mr-2"></i>Comentário Bom</h3>
+                            <p class="mb-4 text-green-800">Esclarece a intenção por trás de uma regra de negócio complexa ou otimização.</p>
+                             <div class="code-block" data-code-block>
+                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Itera sobre os bens para calcular o valor 
+// depreciado, conforme a regra fiscal XYZ.</span>
+                            </div>
+                        </div>
+                        <div class="content-card bg-red-50">
+                           <h3 class="font-bold text-xl mb-3 text-red-700 flex items-center"><i class="fas fa-times-circle mr-2"></i>Comentário Ruim</h3>
+                            <p class="mb-4 text-red-800">Comentários óbvios que repetem o que o código faz não agregam valor.</p>
+                             <div class="code-block" data-code-block>
+                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Itera sobre a lista de bens
+// (O comando 'for' já diz isso).
+
+i = i + 1; // Incrementa i</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Parâmetros de Relatórios -->
+                <section id="section-9" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">6. Parâmetros de Emissão de Relatórios</h2>
+                    <p class="text-gray-600">A definição dos parâmetros afeta a usabilidade, a performance e a manutenibilidade.</p>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Nomenclatura e Padrão</h3>
+                        <p>Todos os parâmetros devem seguir o padrão <strong>camelCase</strong>.</p>
+                    </div>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Otimização e Usabilidade</h3>
+                        <p>Para garantir a performance, avalie sempre a possibilidade de tornar os <strong>parâmetros-chave obrigatórios</strong> (como período, entidade, status). Isso reduz a quantidade de dados retornados e resulta em relatórios mais rápidos e eficientes.</p>
+                    </div>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Consistência entre Artefatos</h3>
+                        <p>Os parâmetros criados no relatório (.jrxml) e na sua respectiva fonte dinâmica devem ser <strong>idênticos</strong> em nome (camelCase), tipo de dado e descrição para evitar erros e dificuldades de manutenção.</p>
+                    </div>
+                </section>
+
+                <!-- Layout de Relatórios -->
+                <section id="section-8" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">7. Padrão de Layout de Relatórios (Jaspersoft TIBCO)</h2>
+                      <p class="text-gray-600">Para garantir consistência visual e correta geração de PDFs, todo relatório deve ser baseado nos modelos `NossoPadraoInterno.jrxml` e `NossoPadraoExterno.jrxml`.</p>
+
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Modelos para Download</h3>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#" id="downloadInternoBtn" class="download-btn">
+                                <i class="fas fa-download mr-2"></i>
+                                NossoPadraoInterno.jrxml
+                            </a>
+                             <a href="#" id="downloadExternoBtn" class="download-btn">
+                                <i class="fas fa-download mr-2"></i>
+                                NossoPadraoExterno.jrxml
+                            </a>
+                        </div>
+                    </div>
+
+                      <div class="content-card">
+                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Regras Gerais</h3>
+                          <ul class="list-disc list-inside space-y-2">
+                                <li><strong>Fonte Padrão:</strong> Utilizar a fonte <strong>Arial</strong> em todos os componentes.</li>
+                                <li><strong>Altura do TextField:</strong> A altura (`height`) deve ser sempre <strong>3 pixels maior</strong> que o tamanho da fonte. (Ex: Fonte 9, Altura 12).</li>
+                                <li><strong>Alinhamento:</strong> Garantir alinhamento perfeito entre colunas do cabeçalho e dados.</li>
+                                <li><strong>Uso de Linhas (Line):</strong> Evitar na banda de detalhe para não degradar a performance.</li>
+                                <li><strong>Uso de Bordas (Border):</strong> Restrito ao cabeçalho. O corpo do relatório deve ser limpo.</li>
+                          </ul>
+                      </div>
+
+                      <div class="grid md:grid-cols-2 gap-6">
+                        <div class="content-card space-y-4">
+                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Cabeçalho Externo (Visualização Final)</h3>
+                          <p><strong>ESTADO:</strong> Fonte 14</p>
+                          <p><strong>ENTIDADE:</strong> Fonte 12</p>
+                          <p><strong>Nome do relatório:</strong> Fonte 10</p>
+                          <p><strong>Endereço, CEP, CNPJ, Telefone, E-mail, Site, Página, Data:</strong> Fonte 9</p>
+                          <p><strong>Parâmetros:</strong> Fonte 7, Altura 10px, Ajuste de Texto: StretchHeight</p>
+                        </div>
+                         <div class="content-card space-y-4">
+                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Cabeçalho Interno (Estrutura no .jrxml)</h3>
+                          <p><strong>BTH_ENTIDADE_ESTADO:</strong> Fonte 14</p>
+                          <p><strong>ENTIDADE_NOME:</strong> Fonte 12</p>
+                          <p><strong>RELATÓRIO_TITULO:</strong> Fonte 10</p>
+                          <p><strong>Parâmetros:</strong> Fonte 7, Altura 10px, Ajuste de Texto: StretchHeight</p>
+                          <p><strong>Espaçamento Vertical:</strong> Manter 1 pixel entre os campos.</p>
+                        </div>
+                      </div>
+
+                      <div class="grid md:grid-cols-2 gap-6">
+                          <div class="content-card">
+                              <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Dados, Totalizadores e Rodapé</h3>
+                              <ul class="list-disc list-inside space-y-3">
+                                   <li><strong>Dados do Relatório:</strong> Fonte 7 a 9. Valor numérico à direita, texto à esquerda (ou centralizado se tiver máscara).</li>
+                                    <li><strong>Valores Nulos:</strong> Numérico retorna `0,00`. Quantidade ou Data retornam em branco.</li>
+                                   <li><strong>Totalizadores:</strong> Mesmas regras dos dados, mas em <strong>negrito</strong>.</li>
+                                   <li><strong>Rodapé:</strong> Fonte 6. Alinhado à direita na página.</li>
+                                   <li><strong>Seção "NoData":</strong> Renderizar a banda "Cabeçalho de Uso Interno".</li>
+                              </ul>
+                          </div>
+                      </div>
+                 </section>
+
+                <!-- Ambiente e Fluxo -->
+                 <section id="section-6" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">8. Ambiente, Fluxo e Publicação</h2>
+                      <p class="text-gray-600">Diretrizes para o ciclo de desenvolvimento, desde a criação até a publicação final dos artefatos.</p>
+                      
+                      <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Fluxo de Desenvolvimento</h3>
+                        <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-4">
+                            <div class="text-center p-4 bg-blue-50 rounded-lg flex-1">
+                                <div class="text-2xl font-bold text-blue-800">1</div>
+                                <p class="mt-1">Desenvolver na entidade<br><strong>PREFEITURA DE DEMONSTRAÇÃO DE EDITAIS</strong></p>
+                            </div>
+                            <div class="text-gray-400 font-bold text-2xl">&rarr;</div>
+                             <div class="text-center p-4 bg-yellow-50 rounded-lg flex-1">
+                                <div class="text-2xl font-bold text-yellow-800">2</div>
+                                <p class="mt-1">Publicar na entidade<br><strong>BETHA SISTEMAS - DIRETORIA DE PRODUTOS</strong></p>
+                            </div>
+                            <div class="text-gray-400 font-bold text-2xl">&rarr;</div>
+                             <div class="text-center p-4 bg-red-50 rounded-lg flex-1">
+                                <div class="text-2xl font-bold text-red-800">3</div>
+                                <p class="mt-1">Remover da base de dev<br><strong>em até 15 dias</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                      <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Trâmite da Tarefa</h3>
+                        <p class="mb-4">Ao finalizar para testes, o comentário na ferramenta de gestão deve seguir obrigatoriamente esta estrutura:</p>
+                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
+                            <p><strong>h4. (/) Detalhes da implementação e alterações realizadas:</strong><br><span class="text-gray-500">(Descreva aqui, de forma técnica ou funcional, o que foi implementado ou alterado.)</span></p>
+                            <p><strong>h4. (i) Relatórios/Scripts/Arqjoblets criados/alterados?</strong><br><span class="text-gray-500">(Liste aqui os nomes dos artefatos que foram criados ou sofreram alterações.)</span></p>
+                            <p><strong>h4. (flag) Entidade, Ambiente e nome da extensão que foi disponibilizado para testes?</strong><br><span class="text-gray-500">(Ex: Relatório na entidade PREFEITURA DE DEMONSTRAÇÃO DE EDITAIS, ambiente Produção.)</span></p>
+                             <p><strong>h4. (on) Sugestões de testes:</strong><br><span class="text-gray-500">(Descreva cenários e casos de uso para validar a implementação.)</span></p>
+                        </div>
+                    </div>
+                     <div class="content-card">
+                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Licenciamento para Publicação</h3>
+                         <p>Todo e qualquer artefato desenvolvido deve ser salvo com a <strong>licença Livre</strong>. O uso deste tipo de licença permite a rápida validação do código e possibilita a exportação entre entidades. É um pré-requisito técnico para a publicação.</p>
+                     </div>
+                 </section>
+                
+                <!-- Rotina de Publicação -->
+                 <section id="section-7" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">9. Rotina de Publicação</h2>
+                    <p class="text-gray-600">O fluxo a seguir detalha os passos e responsabilidades para a publicação de um novo artefato, desde o desenvolvimento até a entrega final para todos os clientes.</p>
+                    <div class="content-card">
+                        <ol class="relative border-l border-gray-200">                  
+                            <li class="mb-10 ml-6">            
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                                   <i class="fas fa-user-cog text-blue-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Conferir parâmetros da extensão <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">Verificar se foram realizados os vínculos entre relatório e fonte dinâmica, se tipagem e nomes das variáveis estão fechando.</p>
+                            </li>
+                            <li class="mb-10 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                                    <i class="fas fa-user-cog text-blue-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Subir para o GitLab <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">Publicar no GitLab o código da fonte dinâmica (.groovy) e o arquivo .jrxml do layout, seguindo os passos abaixo:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-sm text-gray-600 pl-4">
+                                    <li>Crie uma nova branch a partir da <strong>master</strong> do projeto do sistema desejado presente no subgrupo <strong>Orquestrador</strong>, dentro do projeto <strong>Contratos</strong>.</li>
+                                    <li>Caso já possuir o projeto local, realizar o Git Pull para atualizar o local com base no remoto, antes de criar a branch.</li>
+                                    <li>O nome da branch deve seguir o padrão: <code class="bg-gray-200 text-red-600 px-1 rounded">TipoBranch-CódigoTarefa</code>. Ex: <code class="bg-gray-200 px-1 rounded">hotfix-COM-12345</code> para Incidentes e <code class="bg-gray-200 px-1 rounded">release-COM-12345</code> para Melhorias.</li>
+                                    <li>Realize as alterações e faça o envio (commit) na nova branch.</li>
+                                    <li>Envie (push) a branch para o repositório remoto.</li>
+                                    <li>Abra um <strong>Merge Request (MR)</strong> para a <strong>master</strong>, certificando-se de vincular a demanda no título ou descrição. Deve seguir o padrão: <code class="bg-gray-200 text-red-600 px-1 rounded">#:CódigoTarefa: Detalhes ajuste</code>. Ex: <code class="bg-gray-200 px-1 rounded">#:COM-12345: Resumo ajuste efetuado</code></li>
+                                </ol>
+                            </li>
+                             <li class="mb-10 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                                    <i class="fas fa-user-cog text-blue-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Publicar versão na Diretoria de Produtos <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">A partir da versão criada, deve ser gerada a versão oficial na base da entidade BETHA SISTEMAS - DIRETORIA DE PRODUTOS, garantindo o versão na entidade de controle de extensões.</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-2 text-sm text-gray-600 pl-4">
+                                    <li>
+                                        Conferir se existem atualizações da extensão na <strong>Diretoria de Produtos</strong> no mês da Sprint e se a extensão existe em mais de um sistema.
+                                        <ul class="list-disc list-inside mt-2 space-y-1 pl-6">
+                                            <li><strong>SIM</strong>: Revisar ambos os códigos e fazer o merge.</li>
+                                            <li><strong>NÃO</strong>: Fazer a atualização normalmente replicando o que foi feito na homologação.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Conferir <strong>parâmetros</strong> (Vínculos, ordenação, assinatura como última opção).</li>
+                                </ol>
+                            </li>
+                             <li class="mb-10 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                                   <i class="fas fa-user-cog text-blue-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Orquestrar para base da Prefeitura Municipal de Editais <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">Em primeiro momento, deve ser orquestrado apenas para a entidade citada, afim de efetuar validações.</p>
+                            </li>
+                             <li class="mb-10 ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-green-100 rounded-full -left-3 ring-8 ring-white">
+                                    <i class="fas fa-vial text-green-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Validar em produção na base de alguns clientes <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">Tester</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">Executar o relatório publicado em alguns clientes, validando assim a publicação oficial em produção.</p>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
+                                    <i class="fas fa-check-double text-blue-800 text-xs"></i>
+                                </span>
+                                <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Concluir as tarefas da sprint no JIRA <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
+                                <p class="mb-2 text-sm font-normal text-gray-500">Ao concluir a tarefa, ela irá assumir o status Atendida, garantindo que a sprint encerre com sucesso.</p>
+                            </li>
+                        </ol>
+                    </div>
+                 </section>
+
+                <!-- Exceções às Regras -->
+                <section id="section-10" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">10. Exceções às Regras</h2>
+                    <div class="content-card border-l-4 border-yellow-500 bg-yellow-50">
+                        <p class="text-yellow-800">Este documento é um guia fundamental. No entanto, podem existir situações específicas onde uma regra, especialmente de layout, pode não resultar na melhor experiência para o cliente final.</p>
+                        <p class="mt-4 text-yellow-800 font-semibold">Nesses casos raros, exceções podem ser consideradas, mas qualquer desvio das práticas estabelecidas deve ser previamente debatido e acordado entre todos os membros da equipe envolvidos (desenvolvedores e analistas).</p>
+                    </div>
+                </section>
+
+            </div>
+             <!-- RODAPÉ -->
+            <footer class="text-center mt-10 py-4 border-t border-gray-200 text-sm text-gray-500">
+                <p>Desenvolvimento de Extensões - Vertical Contratos | Responsável: Wesley Ricardo | Versão 1.0 - 04/09/2025</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Link para o arquivo de script externo -->
+    <script src="js/script.js"></script>
+</body>
+</html>
+
