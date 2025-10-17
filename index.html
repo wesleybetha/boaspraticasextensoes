@@ -8,16 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Link para o arquivo de estilo externo -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased">
     <!-- CABEÇALHO -->
     <header class="bg-white shadow-md fixed top-0 left-0 w-full z-30 h-16 flex items-center justify-between px-4 md:px-6">
         <div class="flex items-center gap-3">
-            <!-- CAMINHO DA IMAGEM CORRIGIDO -->
-            <img src="assets/LogoBetha.png" alt="Logo da Empresa" class="h-8">
-            <h1 class="text-lg font-bold text-[#003049] hidden md:block">Guia de Boas Práticas para Desenvolvimento de Extensões</h1>
+             <!-- ATENÇÃO: Verifique o caminho para sua imagem de logo -->
+            <img src="https://placehold.co/150x40/003049/FFFFFF?text=Betha" alt="Logo da Empresa" class="h-8">
+            <h1 class="text-lg font-bold text-[#003049] hidden md:block">Guia de Boas Práticas</h1>
         </div>
+
+        <!-- BARRA DE PESQUISA -->
+        <div class="relative flex-1 max-w-sm lg:max-w-md mx-4">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input type="text" id="search-bar" placeholder="Pesquisar em todo o guia..." class="w-full pl-10 pr-4 py-2 border rounded-full text-sm text-gray-700 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#f77f00]">
+        </div>
+
         <div id="mobile-menu-button" class="md:hidden">
             <button class="flex items-center space-x-2 text-gray-700 p-2 rounded-md hover:bg-gray-100">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -27,11 +36,13 @@
         </div>
     </header>
 
-    <div class="relative min-h-screen md:flex">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="bg-white text-gray-800 w-64 space-y-2 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-20 shadow-lg md:shadow-none top-16 md:top-0">
-            <h2 class="text-lg font-semibold text-center mb-4 text-[#003049] px-2">Navegação Rápida</h2>
-            <nav id="nav-menu">
+    <!-- Wrapper para adicionar espaço abaixo do header fixo -->
+    <div class="pt-24">
+        <div class="relative min-h-screen md:flex">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="bg-white text-gray-800 w-64 space-y-2 py-7 px-2 fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-20 shadow-lg md-shadow-none">
+                <h2 class="text-lg font-semibold text-center mb-4 text-[#003049] px-2">Navegação Rápida</h2>
+                <nav id="nav-menu">
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200 active" data-target="section-0">Início</a>
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-5">1. Nomenclatura de Artefatos</a>
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-1">2. Variáveis e Parâmetros</a>
@@ -43,6 +54,7 @@
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-6">8. Ambiente e Fluxo</a>
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-7">9. Rotina de Publicação</a>
                 <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-10">10. Exceções às Regras</a>
+                <a href="#" class="sidebar-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-200" data-target="section-11">11. Trâmites</a>
             </nav>
         </aside>
 
@@ -52,11 +64,11 @@
                 
                 <!-- SEÇÃO DE BOAS-VINDAS -->
                 <section id="section-0" class="content-section space-y-6">
-                    <h2 class="text-4xl font-bold section-title">Bem-vindo ao Guia de Boas Práticas para Desenvolvimento de Extensões!</h2>
+                    <h2 class="text-4xl font-bold section-title">Bem-vindo ao Guia de Boas Práticas!</h2>
                     <div class="content-card">
                         <p class="text-lg leading-relaxed">Este guia interativo foi criado para ser uma fonte de consulta rápida e eficiente sobre os padrões de desenvolvimento e as melhores práticas adotadas pela nossa equipe.</p>
-                        <p class="mt-4">Navegue pelos tópicos no menu lateral para encontrar as diretrizes que você precisa, desde a nomenclatura de variáveis até o processo de publicação de relatórios.</p>
-                        <p class="mt-4 font-semibold text-blue-700">O objetivo é simples: escrever um código mais limpo, consistente e de fácil manutenção para todos.</p>
+                        <p class="mt-4">Use a barra de pesquisa acima para encontrar qualquer termo no guia ou navegue pelos tópicos no menu lateral para encontrar as diretrizes que você precisa.</p>
+                        <p class="mt-4 font-semibold text-[#003049]">O objetivo é simples: escrever um código mais limpo, consistente e de fácil manutenção para todos.</p>
                     </div>
                 </section>
 
@@ -96,21 +108,23 @@
                         <div class="content-card border-l-4 border-green-500 bg-green-50">
                             <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i class="fas fa-check-circle mr-2"></i>Recomendado: Clareza e Contexto</h3>
                             <p class="mb-4 text-green-800">Nomes devem autoexplicar seu propósito, descrevendo o contexto.</p>
-                            <div class="code-block" data-code-block>
-                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Nomes que descrevem o contexto
+                            <div class="code-block">
+                                <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+                                <pre><code>// Nomes que descrevem o contexto
 def nomeBem
 def placaBem
-def saldoAnteriorBem</span>
+def saldoAnteriorBem</code></pre>
                             </div>
                         </div>
                         <div class="content-card border-l-4 border-red-500 bg-red-50">
                            <h3 class="font-bold text-xl mb-3 text-red-700 flex items-center"><i class="fas fa-times-circle mr-2"></i>Não Recomendado: Nomes Genéricos</h3>
                             <p class="mb-4 text-red-800">Nomes que não dão contexto e podem gerar confusão.</p>
-                             <div class="code-block" data-code-block>
-                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Nomes sem contexto
+                             <div class="code-block">
+                                 <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+                                <pre><code>// Nomes sem contexto
 def nome
 def placa
-def saldo</span>
+def saldo</code></pre>
                             </div>
                         </div>
                     </div>
@@ -118,12 +132,11 @@ def saldo</span>
                     <div class="content-card">
                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Identificação de Estruturas de Dados</h3>
                         <p class="mb-4">Indique o tipo da estrutura (List, Map) no nome da variável para maior clareza.</p>
-                        <div class="code-block" data-code-block>
-                           <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>
-listBens = []
-mapBensPorPlaca = [:]
-</span>
-                       </div>
+                        <div class="code-block">
+                           <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+<pre><code>listBens = []
+mapBensPorPlaca = [:]</code></pre>
+                        </div>
                     </div>
                 </section>
 
@@ -133,8 +146,9 @@ mapBensPorPlaca = [:]
                     <p class="text-gray-600">Para garantir organização, legibilidade e manutenibilidade, todo código Groovy/Java deve ser segmentado em blocos lógicos, delimitados por comentários.</p>
                      <div class="content-card">
                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Modelo de Estrutura</h3>
-                         <div class="code-block" data-code-block>
-                             <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Template</span></button><span data-code-content>/**************************************************
+                         <div class="code-block">
+                             <button class="copy-btn"><i class="far fa-copy"></i><span>Template</span></button>
+<pre><code>/**************************************************
  * Esquema
  **************************************************/
 // Definição do esquema de dados, se aplicável.
@@ -172,7 +186,7 @@ mapBensPorPlaca = [:]
 /**************************************************
  * Inserir dados na fonte
  **************************************************/
-// Processamento e inserção dos dados na fonte de destino.</span>
+// Processamento e inserção dos dados na fonte de destino.</code></pre>
                          </div>
                      </div>
                 </section>
@@ -180,21 +194,21 @@ mapBensPorPlaca = [:]
                 <!-- Linguagem e Performance -->
                 <section id="section-2" class="content-section space-y-6 hidden">
                     <h2 class="text-3xl section-title">4. Linguagem e Performance</h2>
-                     <p class="text-gray-600">A escolha da linguagem e a atenção às práticas de codificação impactam diretamente a performance, o consumo de memória e o tempo de processamento.</p>
+                      <p class="text-gray-600">A escolha da linguagem e a atenção às práticas de codificação impactam diretamente a performance, o consumo de memória e o tempo de processamento.</p>
 
-                     <div class="content-card">
-                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Linguagem de Programação: Groovy/Java</h3>
-                         <p>Para lógicas e customizações, a linguagem a ser utilizada deve ser <strong>Groovy/Java</strong>.</p>
-                         <ul class="list-disc list-inside mt-4 space-y-2">
-                             <li><strong>Vantagens:</strong> Maior flexibilidade, poder de processamento, e facilidade na manutenção e depuração de lógicas complexas.</li>
-                             <li><strong>Evitar:</strong> BFC-Script, devido a limitações de complexidade, performance e manutenibilidade a longo prazo.</li>
-                         </ul>
-                     </div>
+                      <div class="content-card">
+                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Linguagem de Programação: Groovy/Java</h3>
+                          <p>Para lógicas e customizações, a linguagem a ser utilizada deve ser <strong>Groovy/Java</strong>.</p>
+                          <ul class="list-disc list-inside mt-4 space-y-2">
+                              <li><strong>Vantagens:</strong> Maior flexibilidade, poder de processamento, e facilidade na manutenção e depuração de lógicas complexas.</li>
+                              <li><strong>Evitar:</strong> BFC-Script, devido a limitações de complexidade, performance e manutenibilidade a longo prazo.</li>
+                          </ul>
+                      </div>
 
-                     <div class="content-card">
-                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Mapeamento Seletivo de Campos</h3>
-                         <p>Ao definir uma fonte de dados, mapeie <strong>apenas os campos que serão efetivamente utilizados</strong> no script para evitar tráfego de dados e consumo de memória desnecessários.</p>
-                     </div>
+                      <div class="content-card">
+                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Mapeamento Seletivo de Campos</h3>
+                          <p>Ao definir uma fonte de dados, mapeie <strong>apenas os campos que serão efetivamente utilizados</strong> no script para evitar tráfego de dados e consumo de memória desnecessários.</p>
+                      </div>
 
                     <div class="content-card">
                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Evitar Consultas Aninhadas em Loops (N+1)</h3>
@@ -202,19 +216,21 @@ mapBensPorPlaca = [:]
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <h4 class="font-semibold text-lg mb-2 text-red-600">Prática Ruim (N+1)</h4>
-                                <div class="code-block" data-code-block>
-                                    <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>List bens = queryBens()
+                                <div class="code-block">
+                                    <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+<pre><code>List bens = queryBens()
 for(bem in bens){
   // Uma nova consulta para cada item!
   def infoExtra = queryInfoExtra(bem.id) 
   // ...
-}</span>
+}</code></pre>
                                 </div>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-lg mb-2 text-green-600">Alternativa Correta</h4>
-                                 <div class="code-block" data-code-block>
-                                    <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Carrega dados secundários antes
+                                 <div class="code-block">
+                                     <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+<pre><code>// Carrega dados secundários antes
 Map infosExtras = queryTodasInfosExtras()
 
 List bens = queryBens()
@@ -222,8 +238,8 @@ for(bem in bens){
   // Acesso rápido em memória
   def infoExtra = infosExtras.get(bem.id)
   // ...
-}</span>
-                                </div>
+}</code></pre>
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -233,26 +249,28 @@ for(bem in bens){
                  <section id="section-4" class="content-section space-y-6 hidden">
                     <h2 class="text-3xl section-title">5. Comentários no Código</h2>
                     <p class="text-gray-600">A regra de ouro é: <strong>comentários devem explicar o "porquê", não o "o quê"</strong>. O código deve ser legível o suficiente para explicar o que está fazendo.</p>
-                     <div class="grid md:grid-cols-2 gap-6">
-                        <div class="content-card bg-green-50">
-                           <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i class="fas fa-check-circle mr-2"></i>Comentário Bom</h3>
-                            <p class="mb-4 text-green-800">Esclarece a intenção por trás de uma regra de negócio complexa ou otimização.</p>
-                             <div class="code-block" data-code-block>
-                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Itera sobre os bens para calcular o valor 
-// depreciado, conforme a regra fiscal XYZ.</span>
-                            </div>
-                        </div>
-                        <div class="content-card bg-red-50">
-                           <h3 class="font-bold text-xl mb-3 text-red-700 flex items-center"><i class="fas fa-times-circle mr-2"></i>Comentário Ruim</h3>
-                            <p class="mb-4 text-red-800">Comentários óbvios que repetem o que o código faz não agregam valor.</p>
-                             <div class="code-block" data-code-block>
-                                <button class="copy-btn" data-copy-btn><i class="far fa-copy"></i><span>Copiar</span></button><span data-code-content>// Itera sobre a lista de bens
+                      <div class="grid md:grid-cols-2 gap-6">
+                          <div class="content-card bg-green-50">
+                             <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i class="fas fa-check-circle mr-2"></i>Comentário Bom</h3>
+                             <p class="mb-4 text-green-800">Esclarece a intenção por trás de uma regra de negócio complexa ou otimização.</p>
+                               <div class="code-block">
+                                   <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+<pre><code>// Itera sobre os bens para calcular o valor 
+// depreciado, conforme a regra fiscal XYZ.</code></pre>
+                               </div>
+                          </div>
+                          <div class="content-card bg-red-50">
+                             <h3 class="font-bold text-xl mb-3 text-red-700 flex items-center"><i class="fas fa-times-circle mr-2"></i>Comentário Ruim</h3>
+                             <p class="mb-4 text-red-800">Comentários óbvios que repetem o que o código faz não agregam valor.</p>
+                               <div class="code-block">
+                                   <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+<pre><code>// Itera sobre a lista de bens
 // (O comando 'for' já diz isso).
 
-i = i + 1; // Incrementa i</span>
-                            </div>
-                        </div>
-                    </div>
+i = i + 1; // Incrementa i</code></pre>
+                               </div>
+                          </div>
+                      </div>
                 </section>
 
                 <!-- Parâmetros de Relatórios -->
@@ -279,7 +297,7 @@ i = i + 1; // Incrementa i</span>
                 <!-- Layout de Relatórios -->
                 <section id="section-8" class="content-section space-y-6 hidden">
                     <h2 class="text-3xl section-title">7. Padrão de Layout de Relatórios (Jaspersoft TIBCO)</h2>
-                      <p class="text-gray-600">Para garantir consistência visual e correta geração de PDFs, todo relatório deve ser baseado nos modelos `NossoPadraoInterno.jrxml` e `NossoPadraoExterno.jrxml`.</p>
+                        <p class="text-gray-600">Para garantir consistência visual e correta geração de PDFs, todo relatório deve ser baseado nos modelos `NossoPadraoInterno.jrxml` e `NossoPadraoExterno.jrxml`.</p>
 
                     <div class="content-card">
                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Modelos para Download</h3>
@@ -295,18 +313,18 @@ i = i + 1; // Incrementa i</span>
                         </div>
                     </div>
 
-                      <div class="content-card">
-                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Regras Gerais</h3>
-                          <ul class="list-disc list-inside space-y-2">
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Regras Gerais</h3>
+                        <ul class="list-disc list-inside space-y-2">
                                 <li><strong>Fonte Padrão:</strong> Utilizar a fonte <strong>Arial</strong> em todos os componentes.</li>
                                 <li><strong>Altura do TextField:</strong> A altura (`height`) deve ser sempre <strong>3 pixels maior</strong> que o tamanho da fonte. (Ex: Fonte 9, Altura 12).</li>
                                 <li><strong>Alinhamento:</strong> Garantir alinhamento perfeito entre colunas do cabeçalho e dados.</li>
                                 <li><strong>Uso de Linhas (Line):</strong> Evitar na banda de detalhe para não degradar a performance.</li>
                                 <li><strong>Uso de Bordas (Border):</strong> Restrito ao cabeçalho. O corpo do relatório deve ser limpo.</li>
-                          </ul>
-                      </div>
+                        </ul>
+                    </div>
 
-                      <div class="grid md:grid-cols-2 gap-6">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div class="content-card space-y-4">
                           <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Cabeçalho Externo (Visualização Final)</h3>
                           <p><strong>ESTADO:</strong> Fonte 14</p>
@@ -323,28 +341,28 @@ i = i + 1; // Incrementa i</span>
                           <p><strong>Parâmetros:</strong> Fonte 7, Altura 10px, Ajuste de Texto: StretchHeight</p>
                           <p><strong>Espaçamento Vertical:</strong> Manter 1 pixel entre os campos.</p>
                         </div>
-                      </div>
+                    </div>
 
-                      <div class="grid md:grid-cols-2 gap-6">
-                          <div class="content-card">
-                              <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Dados, Totalizadores e Rodapé</h3>
-                              <ul class="list-disc list-inside space-y-3">
-                                   <li><strong>Dados do Relatório:</strong> Fonte 7 a 9. Valor numérico à direita, texto à esquerda (ou centralizado se tiver máscara).</li>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="content-card">
+                            <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Dados, Totalizadores e Rodapé</h3>
+                            <ul class="list-disc list-inside space-y-3">
+                                    <li><strong>Dados do Relatório:</strong> Fonte 7 a 9. Valor numérico à direita, texto à esquerda (ou centralizado se tiver máscara).</li>
                                     <li><strong>Valores Nulos:</strong> Numérico retorna `0,00`. Quantidade ou Data retornam em branco.</li>
-                                   <li><strong>Totalizadores:</strong> Mesmas regras dos dados, mas em <strong>negrito</strong>.</li>
-                                   <li><strong>Rodapé:</strong> Fonte 6. Alinhado à direita na página.</li>
-                                   <li><strong>Seção "NoData":</strong> Renderizar a banda "Cabeçalho de Uso Interno".</li>
-                              </ul>
-                          </div>
-                      </div>
-                 </section>
+                                    <li><strong>Totalizadores:</strong> Mesmas regras dos dados, mas em <strong>negrito</strong>.</li>
+                                    <li><strong>Rodapé:</strong> Fonte 6. Alinhado à direita na página.</li>
+                                    <li><strong>Seção "NoData":</strong> Renderizar a banda "Cabeçalho de Uso Interno".</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
 
                 <!-- Ambiente e Fluxo -->
-                 <section id="section-6" class="content-section space-y-6 hidden">
+                <section id="section-6" class="content-section space-y-6 hidden">
                     <h2 class="text-3xl section-title">8. Ambiente, Fluxo e Publicação</h2>
-                      <p class="text-gray-600">Diretrizes para o ciclo de desenvolvimento, desde a criação até a publicação final dos artefatos.</p>
-                      
-                      <div class="content-card">
+                        <p class="text-gray-600">Diretrizes para o ciclo de desenvolvimento, desde a criação até a publicação final dos artefatos.</p>
+                        
+                    <div class="content-card">
                         <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Fluxo de Desenvolvimento</h3>
                         <div class="flex flex-col md:flex-row items-center justify-around space-y-4 md:space-y-0 md:space-x-4">
                             <div class="text-center p-4 bg-blue-50 rounded-lg flex-1">
@@ -364,28 +382,18 @@ i = i + 1; // Incrementa i</span>
                         </div>
                     </div>
 
-                      <div class="content-card">
-                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Trâmite da Tarefa</h3>
-                        <p class="mb-4">Ao finalizar para testes, o comentário na ferramenta de gestão deve seguir obrigatoriamente esta estrutura:</p>
-                        <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
-                            <p><strong>h4. (/) Detalhes da implementação e alterações realizadas:</strong><br><span class="text-gray-500">(Descreva aqui, de forma técnica ou funcional, o que foi implementado ou alterado.)</span></p>
-                            <p><strong>h4. (i) Relatórios/Scripts/Arqjoblets criados/alterados?</strong><br><span class="text-gray-500">(Liste aqui os nomes dos artefatos que foram criados ou sofreram alterações.)</span></p>
-                            <p><strong>h4. (flag) Entidade, Ambiente e nome da extensão que foi disponibilizado para testes?</strong><br><span class="text-gray-500">(Ex: Relatório na entidade PREFEITURA DE DEMONSTRAÇÃO DE EDITAIS, ambiente Produção.)</span></p>
-                             <p><strong>h4. (on) Sugestões de testes:</strong><br><span class="text-gray-500">(Descreva cenários e casos de uso para validar a implementação.)</span></p>
-                        </div>
-                    </div>
                      <div class="content-card">
                          <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Licenciamento para Publicação</h3>
                          <p>Todo e qualquer artefato desenvolvido deve ser salvo com a <strong>licença Livre</strong>. O uso deste tipo de licença permite a rápida validação do código e possibilita a exportação entre entidades. É um pré-requisito técnico para a publicação.</p>
                      </div>
-                 </section>
+                </section>
                 
                 <!-- Rotina de Publicação -->
                  <section id="section-7" class="content-section space-y-6 hidden">
                     <h2 class="text-3xl section-title">9. Rotina de Publicação</h2>
                     <p class="text-gray-600">O fluxo a seguir detalha os passos e responsabilidades para a publicação de um novo artefato, desde o desenvolvimento até a entrega final para todos os clientes.</p>
                     <div class="content-card">
-                        <ol class="relative border-l border-gray-200">                  
+                        <ol class="relative border-l border-gray-200 dark:border-gray-700">                  
                             <li class="mb-10 ml-6">            
                                 <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
                                    <i class="fas fa-user-cog text-blue-800 text-xs"></i>
@@ -393,7 +401,7 @@ i = i + 1; // Incrementa i</span>
                                 <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Conferir parâmetros da extensão <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
                                 <p class="mb-2 text-sm font-normal text-gray-500">Verificar se foram realizados os vínculos entre relatório e fonte dinâmica, se tipagem e nomes das variáveis estão fechando.</p>
                             </li>
-                            <li class="mb-10 ml-6">
+                             <li class="mb-10 ml-6">
                                 <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
                                     <i class="fas fa-user-cog text-blue-800 text-xs"></i>
                                 </span>
@@ -442,7 +450,7 @@ i = i + 1; // Incrementa i</span>
                             </li>
                             <li class="mb-10 ml-6">
                                 <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white">
-                                   <i class="fas fa-user-cog text-blue-800 text-xs"></i>
+                                    <i class="fas fa-user-cog text-blue-800 text-xs"></i>
                                 </span>
                                 <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900">Publicar para todos os clientes<span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">DEV</span></h3>
                                 <p class="mb-2 text-sm font-normal text-gray-500">Após validações do artefato na Prefeitura Municipal de Demonstração de Editais, deve ser publicado para todos os clientes.</p>
@@ -471,20 +479,68 @@ i = i + 1; // Incrementa i</span>
                     <h2 class="text-3xl section-title">10. Exceções às Regras</h2>
                     <div class="content-card border-l-4 border-yellow-500 bg-yellow-50">
                         <p class="text-yellow-800">Este documento é um guia fundamental. No entanto, podem existir situações específicas onde uma regra, especialmente de layout, pode não resultar na melhor experiência para o cliente final.</p>
-                        <p class="mt-4 text-yellow-800 font-semibold">Nesses casos raros, exceções podem ser consideradas, mas qualquer desvio das práticas estabelecidas deve ser previamente debatido e acordado entre todos os membros da equipe envolvidos (desenvolvedores e analistas).</p>
+                        <p class="mt-4 text-yellow-800 font-semibold">Nesses casos raros, exceções podem ser consideradas, mas qualquer desvio das práticas estabelecidas deve ser previamente debatido e acordado entre todos os membros da equipe.</p>
+                    </div>
+                </section>
+
+                <!-- Trâmites -->
+                <section id="section-11" class="content-section space-y-6 hidden">
+                    <h2 class="text-3xl section-title">11. Trâmites</h2>
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Atendimento de Chamados</h3>
+                        <p class="mb-4">Modelo de resposta padrão para chamados atendidos:</p>
+                        <div class="relative copy-container">
+                             <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+                             <div class="copy-text-area p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-2 text-gray-700">
+                                <p>Olá,</p>
+                                <br>
+                                <p>Foram realizados os ajustes necessários para garantir a correta execução do relatório.</p>
+                                <br>
+                                <p>Atenciosamente,</p>
+                                <p class="italic">*Vertical Contratos*</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Triagem de Chamados</h3>
+                        <p class="mb-4">Estrutura para documentar a triagem de chamados:</p>
+                        <div class="relative copy-container">
+                             <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+                             <div class="copy-text-area p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
+                                <p><strong>*Menu:*</strong></p>
+                                <br>
+                                <p><strong>*Passos para simulação:*</strong></p>
+                                <br>
+                                <p><strong>*Necessidade:*</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="content-card">
+                        <h3 class="font-bold text-xl mb-3 text-[#0077b6]">Atendimento de Implementação</h3>
+                        <p class="mb-4">Ao finalizar para testes, o comentário na ferramenta de gestão deve seguir obrigatoriamente esta estrutura:</p>
+                        <div class="relative copy-container">
+                            <button class="copy-btn"><i class="far fa-copy"></i><span>Copiar</span></button>
+                            <div class="copy-text-area p-4 border border-gray-200 rounded-lg bg-gray-50 space-y-3">
+                                <p><strong>h4. (/) Detalhes da implementação e alterações realizadas:</strong><br><span class="text-gray-500">(Descreva aqui, de forma técnica ou funcional, o que foi implementado ou alterado.)</span></p>
+                                <p><strong>h4. (i) Relatórios/Scripts/Arqjoblets criados/alterados?</strong><br><span class="text-gray-500">(Liste aqui os nomes dos artefatos que foram criados ou sofreram alterações.)</span></p>
+                                <p><strong>h4. (flag) Entidade, Ambiente e nome da extensão que foi disponibilizado para testes?</strong><br><span class="text-gray-500">(Ex: Relatório na entidade PREFEITURA DE DEMONSTRAÇÃO DE EDITAIS, ambiente Produção.)</span></p>
+                                 <p><strong>h4. (on) Sugestões de testes:</strong><br><span class="text-gray-500">(Descreva cenários e casos de uso para validar a implementação.)</span></p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
             </div>
              <!-- RODAPÉ -->
             <footer class="text-center mt-10 py-4 border-t border-gray-200 text-sm text-gray-500">
-                <p>Desenvolvimento de Extensões - Vertical Contratos | Responsável: Wesley Ricardo | Versão 1.0 - 04/09/2025</p>
+                <p>Desenvolvimento de Extensões - Vertical Contratos | Responsável: Wesley Ricardo | Versão 1.1 - 17/10/2025</p>
             </footer>
         </main>
     </div>
-
+    </div>
+    
     <!-- Link para o arquivo de script externo -->
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 
