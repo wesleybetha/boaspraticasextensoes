@@ -61,19 +61,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // Previne múltiplos listeners
             if (copyButton.dataset.listenerAttached) return;
 
-            const codeBlock = copyButton.closest('.code-block');
-            const copyContainer = copyButton.closest('.copy-container');
-            
-            let elementToCopy = null;
-            if(codeBlock) {
-                elementToCopy = codeBlock.querySelector('code');
-            } else if (copyContainer) {
-                elementToCopy = copyContainer.querySelector('.copy-text-area');
-            }
+            copyButton.addEventListener('click', () => {
+                const codeBlock = copyButton.closest('.code-block');
+                const copyContainer = copyButton.closest('.copy-container');
+                let textToCopy = '';
 
-            if (elementToCopy) {
-                copyButton.addEventListener('click', () => {
-                    navigator.clipboard.writeText(elementToCopy.innerText).then(() => {
+                if (codeBlock) {
+                    const codeElement = codeBlock.querySelector('code');
+                    if (codeElement) textToCopy = codeElement.innerText;
+                } else if (copyContainer) {
+                    const textElement = copyContainer.querySelector('.copy-text-area');
+                    if (textElement) textToCopy = textElement.innerText;
+                }
+
+                if (textToCopy) {
+                    // Fallback para document.execCommand
+                    const textArea = document.createElement('textarea');
+                    textArea.value = textToCopy;
+                    textArea.style.position = 'absolute';
+                    textArea.style.left = '-9999px';
+                    document.body.appendChild(textArea);
+                    
+                    textArea.select();
+                    
+                    try {
+                        document.execCommand('copy');
                         const buttonTextSpan = copyButton.querySelector('span');
                         const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
                         const icon = copyButton.querySelector('i');
@@ -85,10 +97,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             if(buttonTextSpan) buttonTextSpan.textContent = originalText;
                             if(icon) icon.className = 'far fa-copy';
                         }, 2000);
-                    });
-                });
-                copyButton.dataset.listenerAttached = 'true';
-            }
+
+                    } catch (err) {
+                        console.error('Falha ao copiar texto: ', err);
+                    } finally {
+                        document.body.removeChild(textArea);
+                    }
+                }
+            });
+            copyButton.dataset.listenerAttached = 'true';
         });
     };
     
@@ -151,3 +168,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchInput.addEventListener('input', performSearch);
 });
+
