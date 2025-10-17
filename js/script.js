@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.toggle('-translate-x-full');
     });
     
-    // --- FUNCIONALIDADE DE COPIAR CÓDIGO/TEXTO ---
+    // --- FUNCIONALIDADE DE COPIAR CÓDIGO/TEXTO (VERSÃO CORRIGIDA) ---
     const setupCopyButtons = (container) => {
          container.querySelectorAll('.copy-btn').forEach(copyButton => {
             // Previne múltiplos listeners
@@ -75,34 +75,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (textToCopy) {
-                    // Fallback para document.execCommand
+                    // Cria um textarea temporário para realizar a cópia
                     const textArea = document.createElement('textarea');
                     textArea.value = textToCopy;
-                    textArea.style.position = 'absolute';
+
+                    // Deixa o textarea invisível e fora da tela
+                    textArea.style.position = 'fixed';
+                    textArea.style.top = '-9999px';
                     textArea.style.left = '-9999px';
-                    document.body.appendChild(textArea);
                     
+                    document.body.appendChild(textArea);
+                    textArea.focus();
                     textArea.select();
                     
+                    let success = false;
                     try {
-                        document.execCommand('copy');
-                        const buttonTextSpan = copyButton.querySelector('span');
-                        const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
-                        const icon = copyButton.querySelector('i');
-                        
+                        // Tenta executar o comando de cópia
+                        success = document.execCommand('copy');
+                    } catch (err) {
+                        console.error('Falha ao tentar copiar o texto: ', err);
+                    }
+                    
+                    // Remove o textarea da página
+                    document.body.removeChild(textArea);
+
+                    // Fornece feedback visual ao usuário
+                    const buttonTextSpan = copyButton.querySelector('span');
+                    const icon = copyButton.querySelector('i');
+                    const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
+
+                    if (success) {
                         if(buttonTextSpan) buttonTextSpan.textContent = 'Copiado!';
                         if(icon) icon.className = 'fas fa-check';
-                        
-                        setTimeout(() => {
-                            if(buttonTextSpan) buttonTextSpan.textContent = originalText;
-                            if(icon) icon.className = 'far fa-copy';
-                        }, 2000);
-
-                    } catch (err) {
-                        console.error('Falha ao copiar texto: ', err);
-                    } finally {
-                        document.body.removeChild(textArea);
+                    } else {
+                        if(buttonTextSpan) buttonTextSpan.textContent = 'Falhou!';
+                        if(icon) icon.className = 'fas fa-times';
                     }
+                    
+                    // Restaura o estado original do botão após 2 segundos
+                    setTimeout(() => {
+                        if(buttonTextSpan) buttonTextSpan.textContent = originalText;
+                        if(icon) icon.className = 'far fa-copy';
+                    }, 2000);
                 }
             });
             copyButton.dataset.listenerAttached = 'true';
