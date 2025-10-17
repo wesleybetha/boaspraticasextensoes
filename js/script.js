@@ -55,76 +55,62 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.toggle('-translate-x-full');
     });
     
-    // --- FUNCIONALIDADE DE COPIAR CÓDIGO/TEXTO (VERSÃO CORRIGIDA) ---
-    const setupCopyButtons = (container) => {
-         container.querySelectorAll('.copy-btn').forEach(copyButton => {
-            // Previne múltiplos listeners
-            if (copyButton.dataset.listenerAttached) return;
+    // --- FUNCIONALIDADE DE COPIAR CÓDIGO/TEXTO (VERSÃO COM EVENT DELEGATION) ---
+    document.body.addEventListener('click', (event) => {
+        const copyButton = event.target.closest('.copy-btn');
+        if (!copyButton) return; // Sai se o clique não foi em um botão de copiar
 
-            copyButton.addEventListener('click', () => {
-                const codeBlock = copyButton.closest('.code-block');
-                const copyContainer = copyButton.closest('.copy-container');
-                let textToCopy = '';
+        const codeBlock = copyButton.closest('.code-block');
+        const copyContainer = copyButton.closest('.copy-container');
+        let textToCopy = '';
 
-                if (codeBlock) {
-                    const codeElement = codeBlock.querySelector('code');
-                    if (codeElement) textToCopy = codeElement.innerText;
-                } else if (copyContainer) {
-                    const textElement = copyContainer.querySelector('.copy-text-area');
-                    if (textElement) textToCopy = textElement.innerText;
-                }
+        if (codeBlock) {
+            const codeElement = codeBlock.querySelector('code');
+            if (codeElement) textToCopy = codeElement.textContent;
+        } else if (copyContainer) {
+            const textElement = copyContainer.querySelector('.copy-text-area');
+            if (textElement) textToCopy = textElement.textContent;
+        }
 
-                if (textToCopy) {
-                    // Cria um textarea temporário para realizar a cópia
-                    const textArea = document.createElement('textarea');
-                    textArea.value = textToCopy;
+        if (textToCopy) {
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            textArea.style.left = '-9999px';
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.error('Falha ao tentar copiar o texto: ', err);
+            }
+            
+            document.body.removeChild(textArea);
 
-                    // Deixa o textarea invisível e fora da tela
-                    textArea.style.position = 'fixed';
-                    textArea.style.top = '-9999px';
-                    textArea.style.left = '-9999px';
-                    
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    
-                    let success = false;
-                    try {
-                        // Tenta executar o comando de cópia
-                        success = document.execCommand('copy');
-                    } catch (err) {
-                        console.error('Falha ao tentar copiar o texto: ', err);
-                    }
-                    
-                    // Remove o textarea da página
-                    document.body.removeChild(textArea);
+            // Feedback visual para o usuário
+            const buttonTextSpan = copyButton.querySelector('span');
+            const icon = copyButton.querySelector('i');
+            const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
 
-                    // Fornece feedback visual ao usuário
-                    const buttonTextSpan = copyButton.querySelector('span');
-                    const icon = copyButton.querySelector('i');
-                    const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
-
-                    if (success) {
-                        if(buttonTextSpan) buttonTextSpan.textContent = 'Copiado!';
-                        if(icon) icon.className = 'fas fa-check';
-                    } else {
-                        if(buttonTextSpan) buttonTextSpan.textContent = 'Falhou!';
-                        if(icon) icon.className = 'fas fa-times';
-                    }
-                    
-                    // Restaura o estado original do botão após 2 segundos
-                    setTimeout(() => {
-                        if(buttonTextSpan) buttonTextSpan.textContent = originalText;
-                        if(icon) icon.className = 'far fa-copy';
-                    }, 2000);
-                }
-            });
-            copyButton.dataset.listenerAttached = 'true';
-        });
-    };
-    
-    // Configura os botões de cópia iniciais
-    setupCopyButtons(document.body);
+            if (success) {
+                if(buttonTextSpan) buttonTextSpan.textContent = 'Copiado!';
+                if(icon) icon.className = 'fas fa-check';
+            } else {
+                if(buttonTextSpan) buttonTextSpan.textContent = 'Falhou!';
+                if(icon) icon.className = 'fas fa-times';
+            }
+            
+            setTimeout(() => {
+                if(buttonTextSpan) buttonTextSpan.textContent = originalText;
+                if(icon) icon.className = 'far fa-copy';
+            }, 2000);
+        }
+    });
 
 
     // --- FUNCIONALIDADE DE PESQUISA ---
@@ -143,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                section.innerHTML = originalSectionsHTML.get(section.id);
             });
             showSection(activeId);
-            setupCopyButtons(document.body);
+            // Não precisa mais chamar setupCopyButtons aqui
             return;
         }
         
@@ -167,8 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // Re-anexa os listeners de cópia, pois o innerHTML foi reescrito
-        setupCopyButtons(document.body);
+        // Não precisa mais chamar setupCopyButtons aqui
 
         // Se nenhum resultado for encontrado, mostra uma mensagem
         if (!resultsFound) {
