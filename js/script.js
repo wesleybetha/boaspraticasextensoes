@@ -790,77 +790,76 @@ MID($F{entidade_telefone},7,4)]]></textFieldExpression>
         URL.revokeObjectURL(url);
     };
 
-    const downloadInternoBtn = document.getElementById('downloadInternoBtn');
-    const downloadExternoBtn = document.getElementById('downloadExternoBtn');
-
-    if (downloadInternoBtn) {
-        downloadInternoBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            downloadFile('NossoPadraoInterno.jrxml', jrxmlInternoContent);
-        });
-    }
-
-    if (downloadExternoBtn) {
-        downloadExternoBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            downloadFile('NossoPadraoExterno.jrxml', jrxmlExternoContent);
-        });
-    }
-
-    // --- FUNCIONALIDADE DE COPIAR CÓDIGO/TEXTO (VERSÃO COM EVENT DELEGATION) ---
+    // --- DELEGATED EVENT LISTENER FOR DYNAMIC CONTENT (COPY & DOWNLOAD) ---
     document.body.addEventListener('click', (event) => {
-        const copyButton = event.target.closest('.copy-btn');
-        if (!copyButton) return; // Sai se o clique não foi em um botão de copiar
+        const target = event.target;
 
-        const codeBlock = copyButton.closest('.code-block');
-        const copyContainer = copyButton.closest('.copy-container');
-        let textToCopy = '';
+        // Handle Copy Button clicks
+        const copyButton = target.closest('.copy-btn');
+        if (copyButton) {
+            const codeBlock = copyButton.closest('.code-block');
+            const copyContainer = copyButton.closest('.copy-container');
+            let textToCopy = '';
 
-        if (codeBlock) {
-            const codeElement = codeBlock.querySelector('code');
-            if (codeElement) textToCopy = codeElement.textContent;
-        } else if (copyContainer) {
-            const textElement = copyContainer.querySelector('.copy-text-area');
-            if (textElement) textToCopy = textElement.textContent;
+            if (codeBlock) {
+                const codeElement = codeBlock.querySelector('code');
+                if (codeElement) textToCopy = codeElement.textContent;
+            } else if (copyContainer) {
+                const textElement = copyContainer.querySelector('.copy-text-area');
+                if (textElement) textToCopy = textElement.textContent;
+            }
+
+            if (textToCopy) {
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                textArea.style.position = 'fixed';
+                textArea.style.top = '-9999px';
+                textArea.style.left = '-9999px';
+                
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                
+                let success = false;
+                try {
+                    success = document.execCommand('copy');
+                } catch (err) {
+                    console.error('Falha ao tentar copiar o texto: ', err);
+                }
+                
+                document.body.removeChild(textArea);
+
+                // Feedback visual para o usuário
+                const buttonTextSpan = copyButton.querySelector('span');
+                const icon = copyButton.querySelector('i');
+                const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
+
+                if (success) {
+                    if(buttonTextSpan) buttonTextSpan.textContent = 'Copiado!';
+                    if(icon) icon.className = 'fas fa-check';
+                } else {
+                    if(buttonTextSpan) buttonTextSpan.textContent = 'Falhou!';
+                    if(icon) icon.className = 'fas fa-times';
+                }
+                
+                setTimeout(() => {
+                    if(buttonTextSpan) buttonTextSpan.textContent = originalText;
+                    if(icon) icon.className = 'far fa-copy';
+                }, 2000);
+            }
+            return; 
         }
 
-        if (textToCopy) {
-            const textArea = document.createElement('textarea');
-            textArea.value = textToCopy;
-            textArea.style.position = 'fixed';
-            textArea.style.top = '-9999px';
-            textArea.style.left = '-9999px';
-            
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            
-            let success = false;
-            try {
-                success = document.execCommand('copy');
-            } catch (err) {
-                console.error('Falha ao tentar copiar o texto: ', err);
+        // Handle Download Button clicks
+        const downloadButton = target.closest('.download-btn');
+        if (downloadButton) {
+            event.preventDefault();
+            const buttonId = downloadButton.id;
+            if (buttonId === 'downloadInternoBtn') {
+                downloadFile('NossoPadraoInterno.jrxml', jrxmlInternoContent);
+            } else if (buttonId === 'downloadExternoBtn') {
+                downloadFile('NossoPadraoExterno.jrxml', jrxmlExternoContent);
             }
-            
-            document.body.removeChild(textArea);
-
-            // Feedback visual para o usuário
-            const buttonTextSpan = copyButton.querySelector('span');
-            const icon = copyButton.querySelector('i');
-            const originalText = buttonTextSpan ? buttonTextSpan.textContent : 'Copiar';
-
-            if (success) {
-                if(buttonTextSpan) buttonTextSpan.textContent = 'Copiado!';
-                if(icon) icon.className = 'fas fa-check';
-            } else {
-                if(buttonTextSpan) buttonTextSpan.textContent = 'Falhou!';
-                if(icon) icon.className = 'fas fa-times';
-            }
-            
-            setTimeout(() => {
-                if(buttonTextSpan) buttonTextSpan.textContent = originalText;
-                if(icon) icon.className = 'far fa-copy';
-            }, 2000);
         }
     });
 
@@ -881,7 +880,6 @@ MID($F{entidade_telefone},7,4)]]></textFieldExpression>
                section.innerHTML = originalSectionsHTML.get(section.id);
             });
             showSection(activeId);
-            // Não precisa mais chamar setupCopyButtons aqui
             return;
         }
         
@@ -905,8 +903,6 @@ MID($F{entidade_telefone},7,4)]]></textFieldExpression>
             }
         });
         
-        // Não precisa mais chamar setupCopyButtons aqui
-
         // Se nenhum resultado for encontrado, mostra uma mensagem
         if (!resultsFound) {
             const message = document.createElement('div');
@@ -919,3 +915,4 @@ MID($F{entidade_telefone},7,4)]]></textFieldExpression>
 
     searchInput.addEventListener('input', performSearch);
 });
+
